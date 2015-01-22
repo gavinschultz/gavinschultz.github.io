@@ -3,8 +3,6 @@ layout: post
 title: Disable hardware interrupts ($0000—0002)
 ---
 
-## Disable hardware interrupts ($0000---0002)
-
 ```
 0000: 1A 50        ORCC #$50   Set condition codes to disable IRQ
 ```

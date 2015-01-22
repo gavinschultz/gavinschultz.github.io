@@ -3,10 +3,9 @@ layout: post
 title: How video display works for the CoCo
 ---
 
-### How video display works for the CoCo
 Exactly how much RAM is used for video, and what does the data translate to on-screen? This particular VDG, the MC6847, provides a resolution of 256 x 192, for a total of 49,152 (48K) pixels; at maximum resolution with one bit per pixel, this means a maximum of 6K of RAM for video. The VDG therefore has 14 modes of varying colors and resolutions:
 
-#### Alphanumeric and "semi-graphics" modes
+### Alphanumeric and "semi-graphics" modes
 These aren't of much interest to us as they mostly display text and very crude graphical blocks.
 
  - ALPHANUMERIC INTERNAL - 32 x 16 characters, 2-color, each byte is an ASCII character. Max 0.5K RAM.
@@ -14,7 +13,7 @@ These aren't of much interest to us as they mostly display text and very crude g
  - SEMIGRAPHICS FOUR - 64 x 32, 8-color. Max 0.5K RAM.
  - SEMIGRAPHICS SIX - 64 x 48, 4-color. Max 0.5K RAM.
 
-#### Resolution modes
+### Resolution modes
 These aren't of much interest for games either as you only get 2 colors. Some of the vector-game ports might be nice candidates; I remember a great black-and-white port of Lunar Lander. (Side note: Greg Zumwalt, who coded Starblaze, himself did a Lunar Lander port, but looking at screenshots online it's not the same one I played.
 
  - RESOLUTION GRAPHICS ONE - 128 x 64, 2-color. Max 1K RAM.
@@ -22,7 +21,7 @@ These aren't of much interest for games either as you only get 2 colors. Some of
  - RESOLUTION GRAPHICS THREE - 128 x 192, 2-color. Max 3K RAM.
  - RESOLUTION GRAPHICS SIX - 256 x 192, 2-color. Max 6K RAM.
 
-#### Color modes
+### Color modes
 Much more interesting as you get 4 colors to play with.
 
  - COLOR GRAPHICS ONE - 64 x 64, 4-color. Max 1K RAM.

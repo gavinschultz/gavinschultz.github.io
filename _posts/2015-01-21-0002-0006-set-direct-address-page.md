@@ -3,7 +3,6 @@ layout: post
 title: Set direct address page ($0002—0006)
 ---
 
-## Set direct address page ($0002---0006)
 ```
 0002: 86 20        LDA  #$20
 0004: 1F 8B        TFR  A,DP   Set to page 32 (offset 0x2000)
