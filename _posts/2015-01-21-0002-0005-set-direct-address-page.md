@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Set direct address page ($0002—0006)
+title: Set direct address page ($0002—0005)
 ---
 
 ```
