@@ -7,6 +7,7 @@ title:  Enable VSYNC interrupts ($0032—0039)
 0032: B6 FF 03     LDA $FF03   Load data from 0xFF03
 0035: 8A 01        ORA #$01    Set bit 0 (OR on 0000 0001)
 0037: B7 FF 03     STA $FF03   Save back to RAM
+003A: B6 FF 02     LDA $FF02   Touch 0xFF02 to clear flags
 ```
 
 Here we're writing a mask to the I/O system via the SAM again, just as we did before [to set the VDG mode]({% post_url 2015-01-23-0013-0015-initialize-video %}). This time it corresponds to the **I/O<sub>0</sub> (Slow)** flags.
@@ -24,3 +25,12 @@ It might be useful to see what happens to the game if we *don't* allow the CPU t
 ![What happens with IRQ to CPU disabled for vertical sync](../images/disabling_vsync_irq_to_cpu.png)
 
 We get the basics of the HUD displayed, but nothing else. The game appears to be otherwise locked on this screen. I would guess this means that the program is actually waiting for the VSYNC signal before proceeding. It likely does this because writing to the video RAM at the same time that it's being rendered to screen is not usually a great idea (you might end up drawing half of the previous state and half of the new state).
+
+### What's that got to do with 0xFF02?
+The final instruction in this snippet is `LDA $FF02`, which appears to make no sense because we don't subsequently do anything with the stored value.
+
+The only information I've been able to find so far - though it's probably formally documented *somewhere*; is in [an online esoteric discussion of the VSYNC interrupt](http://www.coco3.com/community/2010/02/vblank-and-hblank/):
+
+*"As to your question about reading $FF00 or $FF02, that clears the interrupt flag of the respective byte $FF01 or $FF03."*
+
+Fair enough. Having just enabled the VSYNC interrupt, we want to ensure that the interrupt flag (on bit 7 of 0xFF03) is cleared. In MESS I don't actually see the data on 0xFF03 change, nor does skipping this instruction seem to affect the game.
