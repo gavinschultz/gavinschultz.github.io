@@ -13,15 +13,15 @@ Here we AND the value at 0xFF20 against the bitmask `0000 0011`, which sets all 
 
 ![CoCo memory map 0xFF20](../images/CoCo_Memory_Map_FF20.png)
 
-What's the "6-bit D/A"? The "D/A" stands for "digital-to-analog converter". At a technical level, this converts the six-bit input (i.e. a number between 0 and 63) and converts it to a voltage (in this case, between 0.25 volts and 4.75 volts). It appears to be a linear conversion; the approximate voltage can be determined by the formula $V = (n\times0.0715) + 0.25$:
+What's the "6-bit D/A"? The "D/A" stands for "digital-to-analog converter". At a technical level, this converts the six-bit input (i.e. a number between 0 and 63) and converts it to a voltage (in this case, between 0.25 volts and 4.75 volts). It appears to be a linear conversion; the approximate voltage can be determined by the formula <span>$V = (n\times0.0715) + 0.25$</span>:
 
-$$
+<div>$$
 V = (0\times0.0715) + 0.25 = 0.25
-$$
+$$</div>
 
-$$
+<div>$$
 V = (63\times0.0715) + 0.25 \approx 4.75
-$$
+$$</div>
 
 Not that the specific voltages are important for what we're doing... but what is this analog output used for?
 
