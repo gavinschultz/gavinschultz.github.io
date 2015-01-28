@@ -69,14 +69,14 @@ Since the stack starts of 0x3FFF, this 2-byte number will be saved at location 0
 
 Sure enough, we've now performed the multiplication on just the *upper* byte of the value we generated. I would now expect that we add these two together to get E470.
 
-$$
+<div>$$
 \begin{array}{r@{\,}r}
       & \mathtt{3A70} \\
     + & \mathtt{AA00} \\
     \hline
       & \mathtt{E470} \\
 \end{array}
-$$
+$$</div>
 
 But in 0x0062, why did we decrement the stack one extra byte, and clear that value?
 
@@ -93,18 +93,18 @@ We haven't quite done what I expected. We are doing an addition, but by
 
 we actually end up ignoring the lower byte entirely.
 
-$$
+<div>$$
 \begin{array}{r@{\,}r}
       & \mathtt{003A} \\
     + & \mathtt{00AA} \\
     \hline
       & \mathtt{00E4} \\
 \end{array}
-$$
+$$</div>
 
 I couldn't say why at this stage as it's not clear what this variable is actually used for. By not performing the complete 16-bit multiplication we've perhaps saved a couple of instructions, and the value may be accurate enough without needing the lower byte i.e.
 
-$$
+<div>$$
 \mathtt{E400}\approx\mathtt{E470} \\
 58368\approx58480
-$$
+$$</div>
