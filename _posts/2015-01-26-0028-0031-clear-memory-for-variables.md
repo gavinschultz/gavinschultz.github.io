@@ -12,7 +12,7 @@ title:  Clear memory for variables ($0028—0031)
 
 This zeroes all the memory between 0x2000 and 0x26F9. Perhaps this is where we'll be storing all of our variables and other data?
 
-Not that it's going to make much difference, but I wonder why we don't set 2 bytes at a time like we did when [clearing the screen]({% post_url 2015-01-25-0021-0027-clear-the-screen %})?
+Not that it's going to make much difference, but I wonder why we don't set 2 bytes at a time like we did when [clearing the screen]({% post_url 2015-01-25-0025-0027-clear-the-screen %})?
 
 i.e.
 
