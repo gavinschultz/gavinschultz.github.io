@@ -126,3 +126,6 @@ Now we have a 24-bit number that we have to manage. This is much more awkward th
 \mathtt{54E500}\approx\mathtt{54E570} \\
 5,563,648\approx5,563,760
 $$</div>
+
+### ...but this doesn't make sense
+The only thing I can't figure out is why we did a `PSHS ,B,A` and not just a `PSHS ,A`. The B register, containing the ignored lower byte in 3FFE, was never touched, so why put it in the stack at all? Not pushing the B register would also have avoided the issue an extra instruction to return to the top of the stack, i.e. the instruction `LEAS +$01,S` would not have been required.
