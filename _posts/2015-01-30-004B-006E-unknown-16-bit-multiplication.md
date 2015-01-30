@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Unknown 16-bit multiplication, sort of ($004B—006E)
+title:  Set skill-based variable 1 ($004B—006E)
 ---
 
 ```

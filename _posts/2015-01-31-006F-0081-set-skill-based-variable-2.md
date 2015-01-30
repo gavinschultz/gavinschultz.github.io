@@ -23,9 +23,9 @@ This is doing a very similar thing to the previous calculation using the skill l
 \end{array}
 $$</div>
 
-Oddly, this time there's some branching which will avoid extra calculations when the skill_level is 1. The resulting zero in the formula means we can set the result directly to 128. This strikes me as an unnecessary optimisation to be honest; for those 7 extra bytes of program space, we save a few CPU cycles in a non-critical function, but only when the user is playing on the easiest level. It would not make any noticeable difference to the player.
+This time there's some branching which will avoid extra calculations when the skill_level is 1; the resulting zero in the formula means we can set the result directly to 128. This strikes me as an unnecessary optimisation to be honest; for those 7 extra bytes of program space, we save a few CPU cycles in a non-critical function, but only when the user is playing on the easiest level. It would not make any noticeable difference to the player.
 
-Again we don't know exactly what this variable is used for, but the possible values are:
+Again we don't know exactly what this variable is used for yet, but the possible values are:
 
 | skill | value       |
 |:-----:|-------------|
