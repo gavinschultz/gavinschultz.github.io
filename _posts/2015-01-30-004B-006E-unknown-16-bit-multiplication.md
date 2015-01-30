@@ -10,45 +10,53 @@ title:  Unknown 16-bit multiplication, sort of ($004B—006E)
 This perhaps signifies a single byte variable, but it doesn't seem to be used anytime soon. We'll have to come back to it later.
 
 ```
-004D: B6 27 00     LDA $2700    Set A = 8 (0x2700 previously set to 8)
-0050: 4A           DECA         8 -> 7
+004D: B6 27 00     LDA $2700    Set A = skill_level
+0050: 4A           DECA         skill_level - 1
 0051: C6 50        LDB #$50     Set B = 80
-0053: 3D           MUL          80 x 7 = 560
-0054: C3 00 80     ADDD #$0080  560 + 128 = 688 (02B0)
-0057: DD 45        STD $45      Store 0x2045 = 02B0
-0059: DD 47        STD $47      Store 0x2047 = 02B0
+0053: 3D           MUL          (skill_level - 1) x 80
+0054: C3 00 80     ADDD #$0080  +128
+0057: DD 45        STD $45      Store result to 0x2045
+0059: DD 47        STD $47      Store result to 0x2047
 ```
 
-Back at 0x0010, we set 0x2700 to 8. We use that value now to perform a calculation:
+Earlier we identified `$2700` as the [skill_level variable]({% post_url 2015-01-22-000E-0010-initialize-skill-level %}), which has a range of 1 to 8. We use that value now to perform a calculation:
 
 <div>$$
 \begin{array}{l@{\,}l}
-    x & = ((\mathtt{(value\ at\ 0x2700)} - 1)\times80) + 128 \\
-    & = ((8 - 1)\times80) + 128 \\
-     & = 688
+    x & = ((\mathtt{skill\_level} - 1)\times80) + 128 \\
 \end{array}
 $$</div>
 
-No idea on what this number signifies yet.
+We don't know what this number signifies yet, but for skill ranges 1 to 8 it would be set to:
+
+ - skill level 1 = 128 (`$80`)
+ - skill level 2 = 208 (`$D0`)
+ - skill level 3 = 288 (`$120`)
+ - skill level 4 = 368 (`$170`)
+ - skill level 5 = 448 (`$1C0`)
+ - skill level 6 = 528 (`$210`)
+ - skill level 7 = 608 (`$260`)
+ - skill level 8 = 688 (`$2B0`)
+
+For the following code, let's assume that the skill level is set to 8, so the result is `$02B0`.
 
 ```
-005B: 96 46        LDA $46      Set A = 176 (0xB0)
+005B: 96 46        LDA $46      Set A = 176 ($B0)
 005D: C6 55        LDB #$55     Set B = 85
-005F: 3D           MUL          176 x 85 = 14960 (0x3A70)
+005F: 3D           MUL          176 x 85 = 14960 ($3A70)
 ```
 
 I'm glad this processor has its own multiply instruction. It takes 11 CPU cycles, but it could be worse; apparently on the Intel 8086/8088 these instructions took up to 200 cycles.
 
-Anyhow, we've multiplied only the *lower* byte of the 2-byte value we calculated and stored at 0x2045. Why? 
+Anyhow, we've multiplied only the *lower* byte of the 2-byte value we calculated and stored at `$2045`. Why? 
 
-Performing arithmetic on just one part of a multi-byte value might look bizarre at first, but we'll probably end up multiplying the other byte later and then adding the two together. On an 8-bit processor, this is the only way to multiply two numbers that might give a result of 16-bits (or more).
+Performing arithmetic on just one part of a multi-byte value might look strange at first, but we'll probably end up multiplying the other byte later and then adding the two together. On an 8-bit processor, this is the only way to multiply two numbers that might give a result of 16 (or more) bits.
 
 In short, we're probably just trying to do this:
 
 <div>$$
 \begin{array}{l@{\,}l}
-    y & = 688\times85 \\
-    & = 58480
+    y & = 688\times85 = 58480
 \end{array}
 $$</div>
 
@@ -56,7 +64,7 @@ $$</div>
 0060: 34 06        PSHS ,B,A    Push 3A70 to the stack
 ```
 
-Now we push the result of that lower-byte multiplication to the stack. [We saw earlier]({% post_url 2015-01-25-0021-0024-initialize_stack %}) that the stack could be used to temporarily store data, and this is the first time that we're doing so, in this case on the number `3A70`.
+Now we push the result of that lower-byte multiplication to the stack. [We saw earlier]({% post_url 2015-01-25-0021-0024-initialize_stack %}) that the stack could be used to temporarily store data; this is the first time we're actually doing so, in this case on the number `$3A70`.
 
 Assuming we're still at the top of the stack at 0x3FFF, this 2-byte number will be saved at location 0x3FFD.
 
@@ -109,7 +117,21 @@ It's hard to say why we do that as we don't yet know what this variable is used 
 58368\approx58480
 $$</div>
 
-Also, although in this particular case, ignoring the lower byte doesn't seem all that useful, but what if we were multiplying larger numbers? For example:
+With a skill level of between 1 and 8, all possible values are shown below:
+
+| skill |           value | value + lower-byte | value at `$2049` |
+|:-----:|----------------:|-------------------:|-----------------:|
+|   1   | 10752 (`$2A00`) |    10880 (`$2A80`) |     42 (`$002A`) |
+|   2   | 17664 (`$4500`) |    17680 (`$4510`) |     69 (`$0045`) |
+|   3   | 24320 (`$5F00`) |    24480 (`$5FA0`) |     95 (`$005F`) |
+|   4   | 31232 (`$7A00`) |    31280 (`$7A30`) |    122 (`$007A`) |
+|   5   | 37888 (`$9400`) |    38080 (`$94C0`) |    148 (`$0094`) |
+|   6   | 44800 (`$AF00`) |    44880 (`$AF50`) |    175 (`$00AF`) |
+|   7   | 51456 (`$C900`) |    51680 (`$C9E0`) |    201 (`$00C9`) |
+|   8   | 58368 (`$E400`) |    58480 (`$E470`) |    228 (`$00E4`) |
+
+### Discarding the lower byte seems pointless...
+In this particular case ignoring the lower byte doesn't seem all that useful, but it certainly would be if we were multiplying larger numbers. For example:
 
 <div>$$
 \begin{array}{r@{\,}r}
@@ -128,4 +150,7 @@ Now we have a 24-bit number that we have to manage. This is much more awkward th
 $$</div>
 
 ### ...but this doesn't make sense
-The only thing I can't figure out is why we did a `PSHS ,B,A` and not just a `PSHS ,A`. The B register, containing the ignored lower byte in 3FFE, was never touched, so why put it in the stack at all? Not pushing the B register would also have avoided the issue an extra instruction to return to the top of the stack, i.e. the instruction `LEAS +$01,S` would not have been required.
+Two things still don't make sense to me:
+
+1. All possible values are still 16-bit; we would only start to exceed that if the skill_level went to 10 or higher. As-is, the value at `$2049` will *always* be `$00`.
+2. I can't figure out is why we did a `PSHS ,B,A` and not just a `PSHS ,A`. The B register, containing the ignored lower byte in 3FFE, was never touched, so why put it in the stack at all? Not pushing the B register would also have avoided the issue an extra instruction to return to the top of the stack, i.e. the instruction `LEAS +$01,S` would not have been required.
