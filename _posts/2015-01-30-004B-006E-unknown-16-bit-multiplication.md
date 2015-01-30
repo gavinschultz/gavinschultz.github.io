@@ -14,7 +14,7 @@ This perhaps signifies a single byte variable, but it doesn't seem to be used an
 0050: 4A           DECA         skill_level - 1
 0051: C6 50        LDB #$50     Set B = 80
 0053: 3D           MUL          (skill_level - 1) x 80
-0054: C3 00 80     ADDD #$0080  +128
+0054: C3 00 80     ADDD #$0080  + 128
 0057: DD 45        STD $45      Store result to 0x2045
 0059: DD 47        STD $47      Store result to 0x2047
 ```
