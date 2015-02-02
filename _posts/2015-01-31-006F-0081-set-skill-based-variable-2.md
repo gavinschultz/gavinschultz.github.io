@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Set skill-based variable 2 ($006F—0081)
+title:  Set skill-based variable 2 ($C06F—C081)
 ---
 
 ```

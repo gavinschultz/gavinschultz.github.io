@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Disable hardware interrupts ($0000—0001)
+title:  Disable hardware interrupts ($C000—C001)
 ---
 
 ```

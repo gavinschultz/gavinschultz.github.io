@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Initialize skill level ($000E—0010)
+title:  Initialize skill level ($C00E—C010)
 ---
 
 ```

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  New Game entry point ($001F—0020)
+title:  New Game entry point ($C01F—C020)
 ---
 
 ```

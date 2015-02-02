@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Enable VSYNC interrupts ($0032—0039)
+title:  Enable VSYNC interrupts ($C032—C039)
 ---
 
 ```

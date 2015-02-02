@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Initialize frame count ($0087—008B)
+title:  Initialize frame count ($C087—C08B)
 ---
 
 ```

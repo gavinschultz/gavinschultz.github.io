@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Clear memory for variables ($0028—0031)
+title:  Clear memory for variables ($C028—C031)
 ---
 
 ```

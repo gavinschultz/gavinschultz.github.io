@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Initialize unknown variables $2029—$202A ($008C—008F)
+title:  Initialize unknown variables $2029—$202A ($C08C—C08F)
 ---
 
 ```

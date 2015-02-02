@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Kill any lingering sound ($0043—004A)
+title:  Kill any lingering sound ($C043—C04A)
 ---
 
 ```

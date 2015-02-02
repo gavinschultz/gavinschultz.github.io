@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Paint the sky blue ($0090—009C)
+title:  Paint the sky blue ($C090—C09C)
 ---
 
 ```
