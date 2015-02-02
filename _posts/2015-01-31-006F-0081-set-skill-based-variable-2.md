@@ -4,15 +4,15 @@ title:  Set skill-based variable 2 ($006F—0081)
 ---
 
 ```
-006F: B6 27 00     LDA $2700    Set A = skill_level
-0072: 4A           DECA         skill_level - 1
-0073: 26 05        BNE $007A    Branch to $007A if skill_level - 1 > 0
-0075: CC 00 80     LDD #$0080   Set D = 128
-0078: 20 06        BRA $0080    Branch to $0080
-007A: C6 10        LDB #$10     Set B = 16
-007C: 3D           MUL          (skill_level - 1) x 16
-007D: C3 00 80     ADDD #$0080  + 128
-0080: DD 65        STD $65      Store result to $2065
+C06F: B6 27 00     LDA $2700    Set A = skill_level
+C048: 4A           DECA         skill_level - 1
+C049: 26 05        BNE $007A    Branch to $007A if skill_level - 1 > 0
+C04B: CC 00 80     LDD #$0080   Set D = 128
+C04E: 20 06        BRA $0080    Branch to $0080
+C07A: C6 10        LDB #$10     Set B = 16
+C07C: 3D           MUL          (skill_level - 1) x 16
+C07D: C3 00 80     ADDD #$0080  + 128
+C050: DD 65        STD $65      Store result to $2065
 ```
 
 This is doing a very similar thing to the previous calculation using the skill level, but with a multiplier of 16 instead of 80.

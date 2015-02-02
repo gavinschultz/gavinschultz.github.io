@@ -4,9 +4,9 @@ title:  Kill any lingering sound ($0043—004A)
 ---
 
 ```
-0043: B6 FF 20     LDA $FF20	Load 0xFF20
-0046: 84 03        ANDA #$03	Zero bits 2,3,4,5,6,7
-0048: B7 FF 20     STA $FF20	Store
+C02B: B6 FF 20     LDA $FF20	Load 0xFF20
+C02E: 84 03        ANDA #$03	Zero bits 2,3,4,5,6,7
+C030: B7 FF 20     STA $FF20	Store
 ```
 
 Here we AND the value at 0xFF20 against the bitmask `0000 0011`, which sets all of the bits of the 6-bit D/A to 0. 

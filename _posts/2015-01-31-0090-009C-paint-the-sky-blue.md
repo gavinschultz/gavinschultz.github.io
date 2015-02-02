@@ -4,11 +4,11 @@ title:  Paint the sky blue ($0090—009C)
 ---
 
 ```
-0090: 8E 06 00     LDX #$0600   Set X = $0600 (start of video memory)
-0093: CC AA AA     LDD #$AAAA   Set D = $AAAA (blue)
-0096: ED 81        STD ,X++     Store
-0098: 8C 12 00     CMPX #$1200  
-009B: 26 F9        BNE $0096    Loop until $1200
+C090: 8E 06 00     LDX #$0600   Set X = $0600 (start of video memory)
+C093: CC AA AA     LDD #$AAAA   Set D = $AAAA (blue)
+C096: ED 81        STD ,X++     Store
+C098: 8C 12 00     CMPX #$1200  
+C09B: 26 F9        BNE $0096    Loop until $1200
 ```
 
 Here we set all of the memory from `$0600` to `$1200` to the value `$AA`. As this constitutes 3K of data, or exactly half of the total video memory, we can deduce that the top of the screen is being painted a certain color.

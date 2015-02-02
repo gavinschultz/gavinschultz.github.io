@@ -4,10 +4,10 @@ title:  Enable VSYNC interrupts ($0032—0039)
 ---
 
 ```
-0032: B6 FF 03     LDA $FF03   Load data from 0xFF03
-0035: 8A 01        ORA #$01    Set bit 0 (OR on 0000 0001)
-0037: B7 FF 03     STA $FF03   Save back to RAM
-003A: B6 FF 02     LDA $FF02   Touch 0xFF02 to clear flags
+C020: B6 FF 03     LDA $FF03   Load data from 0xFF03
+C023: 8A 01        ORA #$01    Set bit 0 (OR on 0000 0001)
+C025: B7 FF 03     STA $FF03   Save back to RAM
+C03A: B6 FF 02     LDA $FF02   Touch 0xFF02 to clear flags
 ```
 
 Here we're writing a mask to the I/O system via the SAM again, just as we did before [to set the VDG mode]({% post_url 2015-01-23-0013-0015-initialize-video %}). This time it corresponds to the **I/O<sub>0</sub> (Slow)** flags.

@@ -4,10 +4,10 @@ title:  Clear memory for variables ($0028—0031)
 ---
 
 ```
-0028: 8E 20 00     LDX #$2000   Set X to address 0x2000
-002B: 6F 80        CLR ,X+      Set memory at X to 0
-002D: 8C 26 F9     CMPX #$26F9  Check if we've reached 0x26F9
-0030: 26 F9        BNE $002B    Keep going if not
+C01C: 8E 20 00     LDX #$2000   Set X to address 0x2000
+C02B: 6F 80        CLR ,X+      Set memory at X to 0
+C02D: 8C 26 F9     CMPX #$26F9  Check if we've reached 0x26F9
+C01E: 26 F9        BNE $002B    Keep going if not
 ```
 
 This zeroes all the memory between 0x2000 and 0x26F9, a total of 1,785 bytes. Perhaps this is where we'll be storing all of our variables and other data?

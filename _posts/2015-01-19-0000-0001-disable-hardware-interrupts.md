@@ -4,7 +4,7 @@ title: Disable hardware interrupts ($0000—0001)
 ---
 
 ```
-0000: 1A 50        ORCC #$50   Set condition codes to disable IRQ
+C000: 1A 50        ORCC #$50   Set condition codes to disable IRQ
 ```
 
 The Motorola 6809 has the following condition codes ([source](http://retro.co.za/6809/documents/Byte_6809_Articles.pdf "source")):

@@ -4,8 +4,8 @@ title: Set direct address page ($0002—0005)
 ---
 
 ```
-0002: 86 20        LDA  #$20
-0004: 1F 8B        TFR  A,DP   Set to page 32 (offset 0x2000)
+C002: 86 20        LDA  #$20
+C004: 1F 8B        TFR  A,DP   Set to page 32 (offset 0x2000)
 ```
 
 This is essentially a technique for saving bytes in the program code. Normally, a memory address is specified by the full 16-bit address e.g.
