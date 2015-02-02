@@ -19,7 +19,7 @@ C039: DD 45        STD $45      Store result to 0x2045
 C03B: DD 47        STD $47      Store result to 0x2047
 ```
 
-Earlier we identified `$2700` as the [skill_level variable]({% post_url 2015-01-22-000E-0010-initialize-skill-level %}), which has a range of 1 to 8. We use that value now to perform a calculation:
+Earlier we identified `$2700` as the [skill_level variable]({% post_url 2015-01-22-C00E-C010-initialize-skill-level %}), which has a range of 1 to 8. We use that value now to perform a calculation:
 
 <div>$$
 \begin{array}{l@{\,}l}
@@ -64,7 +64,7 @@ $$</div>
 C03C: 34 06        PSHS ,B,A    Push 3A70 to the stack
 ```
 
-Now we push the result of that lower-byte multiplication to the stack. [We saw earlier]({% post_url 2015-01-25-0021-0024-initialize_stack %}) that the stack could be used to temporarily store data; this is the first time we're actually doing so, in this case on the number `$3A70`.
+Now we push the result of that lower-byte multiplication to the stack. [We saw earlier]({% post_url 2015-01-25-C021-C024-initialize_stack %}) that the stack could be used to temporarily store data; this is the first time we're actually doing so, in this case on the number `$3A70`.
 
 Assuming we're still at the top of the stack at 0x3FFF, this 2-byte number will be saved at location 0x3FFD.
 

@@ -10,7 +10,7 @@ C025: B7 FF 03     STA $FF03   Save back to RAM
 C03A: B6 FF 02     LDA $FF02   Touch 0xFF02 to clear flags
 ```
 
-Here we're writing a mask to the I/O system via the SAM again, just as we did before [to set the VDG mode]({% post_url 2015-01-23-0013-0015-initialize-video %}). This time it corresponds to the **I/O<sub>0</sub> (Slow)** flags.
+Here we're writing a mask to the I/O system via the SAM again, just as we did before [to set the VDG mode]({% post_url 2015-01-23-C013-C015-initialize-video %}). This time it corresponds to the **I/O<sub>0</sub> (Slow)** flags.
 
 ![MC6883 I/O memory mapping](../images/MC6883_IO_FF00_to_FF5F.png)
 
