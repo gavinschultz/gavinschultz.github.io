@@ -12,7 +12,7 @@ C01E: 26 F9        BNE $002B    Keep going if not
 
 This zeroes all the memory between 0x2000 and 0x26F9, a total of 1,785 bytes. Perhaps this is where we'll be storing all of our variables and other data?
 
-Not that it's going to make much difference, but I wonder why we don't set 2 bytes at a time like we did when [clearing the screen]({% post_url 2015-01-25-C021-C027-clear-the-screen %})?
+Not that it's going to make much difference, but I wonder why we don't set 2 bytes at a time like we did when [clearing the screen]({% post_url 2015-01-25-C025-C027-clear-the-screen %})?
 
 i.e.
 
