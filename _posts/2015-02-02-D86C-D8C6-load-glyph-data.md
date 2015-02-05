@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Load glpyh data ($D86C—D8C6)
+title:  Load glyph data ($D86C—D8C6)
 ---
 
 This routine is 90 bytes long, but relatively straightforward once unrolled.
