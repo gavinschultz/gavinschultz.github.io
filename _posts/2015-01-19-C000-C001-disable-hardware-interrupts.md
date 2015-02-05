@@ -3,10 +3,24 @@ layout: post
 title:  Disable hardware interrupts ($C000—C001)
 ---
 
+Here's our first line of code:
+
 ```
 C000: 1A 50        ORCC #$50   Set condition codes to disable IRQ
 ```
 
+We start execution at address `$C000`.
+
+### C000?! Why C000?!
+You might expect that when you turn the computer on it'd be sensible to start executing instructions from memory address `$0000`. The 8080, Intel's second ever 8-bit CPU created in 1974, did actually start reading from `$0000`. Later microprocessors would start execution at the *end* of memory; Intel's iconic 8086, the very first x86 processor, starts execution at `$FFFF0` while the Motorola 6809, used in the CoCo itself, starts execution at `$FFFE`.
+
+In that case, why doesn't the code start at `$FFFE`? The short answer is that there's a whole bunch of initialization that has to occur before we can start running our game; and we have to remember that our game is not embedded in the CoCo itself, but sitting in the circuits of a plastic cartridge that we've shoved into a hole on the right-hand side, so we shouldn't really expect that to be given the honour of being mapped to the prime position of `$0000`. We can see where it's actually addressed by looking at the simplified CoCo memory map:
+
+![CoCo Simple Memory Map](../images/CoCo_Simple_Memory_Map.png "CoCo Simple Memory Map")
+
+Our plastic cartridge is the **Program Pak™ Memory**, which resides at `$C000`. Hence, our program starts at `$C000`.
+
+### Condition Codes
 The Motorola 6809 has the following condition codes ([source](http://retro.co.za/6809/documents/Byte_6809_Articles.pdf "source")):
 
 ![Condition codes register for the 6809](../images/6809_condition_code_register.png "6809 Condition Codes Register")
