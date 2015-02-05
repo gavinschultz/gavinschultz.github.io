@@ -10,7 +10,7 @@ C0A4: BD D8 6C     JSR $D86C   Jump with return
 C0A7: 20 05        BRA $C0AE   Jump
 ```
 
-We're setting a couple of address registers before we jump to a subroutine. Without any true certainty, we can take a guess at what's going to happen based on these registers.
+We're setting a couple of address registers before we jump to a subroutine. Without any certainty, we can take a guess at what's going to happen based on the data pointed to by these registers.
 
 The X address refers to an arbitrary area in RAM that we haven't previously touched; the "nice round number" of the address suggests that we might be loading some variables or data into here. 
 
@@ -42,5 +42,5 @@ Now *this* looks promising, and rather familiar, as our in-game gauges use exact
 
 The byte `04` at `$C0AD` is not a renderable ASCII character, but its definition as an "end of transmission" marker suggests that it may signal the point at which we should stop interpreting bytes as text.
 
-With these clues it would be fair to guess that we're going to be rendering the gauges to the screen.
+With these clues it would be fair to guess that we're going to be rendering the gauge labels to the screen.
 
