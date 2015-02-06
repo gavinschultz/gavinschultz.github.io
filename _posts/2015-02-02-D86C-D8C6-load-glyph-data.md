@@ -173,3 +173,64 @@ RET
 ```
 
 However, since popping from the stack into the program counter does exactly the same thing as a `RET`, we can save a byte by combining the two pops into one.
+
+###  What have we loaded?
+We loaded all this data into RAM, but what actually *is* this data? Let's take a look at how it looks after we've used it for the four characters 'F', 'T', 'S', 'R', used as labels on the gauges in the bottom left of the screen. 
+
+When we were looping through our data we noticed that we were spacing it 32-bytes apart, so lets look at it in 32-byte rows:
+
+```
+1D00: 3F FC 0F FC 0F F0 3F F0 00 .. 
+1D20: 30 00 00 C0 30 0C 30 0C 00 .. 
+1D40: 30 00 00 C0 30 00 30 0C 00 .. 
+1D60: 3F C0 00 C0 0F F0 3F F0 00 .. 
+1D80: 30 00 00 C0 00 0C 33 00 00 .. 
+1DA0: 30 00 00 C0 00 0C 30 C0 00 .. 
+1DC0: 30 00 00 C0 30 0C 30 30 00 .. 
+1DE0: 30 00 00 C0 0F F0 30 0C 00 .. 
+```
+
+There are only 9 distinct values used (`$00`, `0C`, `0F`, `30`, `33`, `3F`, `C0`, `F0` and `FC`), but more importantly, if you ignore the zeros you get some interesting patterns:
+
+```
+1D00: 3F FC  F FC  F F  3F F     .. 
+1D20: 3        C  3   C 3   C    .. 
+1D40: 3        C  3     3   C    .. 
+1D60: 3F C     C   F F  3F F     .. 
+1D80: 3        C      C 33       .. 
+1DA0: 3        C      C 3  C     .. 
+1DC0: 3        C  3   C 3  3     .. 
+1DE0: 3        C   F F  3   C    .. 
+```
+
+Hel-lo! The shapes of an F, T, S and R are clearly distinct.
+
+It's even more obvious once we convert them to binary. Here's the F by itself:
+
+```
+1D00: 0011 1111 1111 1100 ..
+1D20: 0011 0000 0000 0000 ..
+1D40: 0011 0000 0000 0000 ..
+1D60: 0011 1111 1100 0000 ..
+1D80: 0011 0000 0000 0000 ..
+1DA0: 0011 0000 0000 0000 ..
+1DC0: 0011 0000 0000 0000 ..
+1DE0: 0011 0000 0000 0000 ..
+```
+
+and without the zeroes to make it **really** obvious:
+
+```
+1D00:   11 1111 1111 11   ..
+1D20:   11                ..
+1D40:   11                ..
+1D60:   11 1111 11        ..
+1D80:   11                ..
+1DA0:   11                ..
+1DC0:   11                ..
+1DE0:   11                ..
+```
+
+I remember being blown away by this when I first saw it done years ago. We're literally drawing in 1's and 0's. 
+
+This is a very rarely used technique in modern times. It's about the most primitive possible way of embedding graphics into a program. It only really works if you want your shapes to be not only monochromatic, but entirely toneless i.e. only 2 colors. 
