@@ -3,7 +3,7 @@ layout: post
 title:  Load glyph data ($D86C—D8C6)
 ---
 
-This routine is 90 bytes long, but relatively straightforward once unrolled.
+This routine is a relatively long 90 bytes long, but relatively straightforward once unrolled.
 
 ```
 D86C: 34 10        PSHS ,X    Push X ($1D00) to stack
@@ -231,6 +231,10 @@ and without the zeroes to make it **really** obvious:
 1DE0:   11                ..
 ```
 
-I remember being blown away by this when I first saw it done years ago. We're literally drawing in 1's and 0's. 
+I remember being blown away by this when I first saw it done years ago. We're literally drawing in 1's and 0's. And we can at last name our <span>$Y_2$</span> variable.
+
+<div>$$
+Y_2 = \mathtt{glyph\_data\_address}
+$$</div>
 
 This is a very rarely used technique in modern times. It's about the most primitive possible way of embedding graphics into a program. It only really works if you want your shapes to be not only monochromatic, but entirely toneless i.e. only 2 colors. 
