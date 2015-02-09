@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Unknown ($C0AE—C0B8)
+title:  Random number generator ($DB1B—DB47)
 ---
 
 ```
