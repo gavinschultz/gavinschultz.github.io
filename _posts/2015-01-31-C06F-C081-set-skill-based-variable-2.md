@@ -19,7 +19,7 @@ This is doing a very similar thing to the previous calculation using the skill l
 
 <div>$$
 \begin{array}{l@{\,}l}
-    y & = ((\mathtt{skill\_level} - 1)\times16) + 128
+    x & = ((\mathtt{skill\_level} - 1)\times16) + 128
 \end{array}
 $$</div>
 
@@ -27,7 +27,7 @@ This time there's some branching which will avoid extra calculations when the sk
 
 Again we don't know exactly what this variable is used for yet, but the possible values are:
 
-| skill | value       |
+| skill_level | value       |
 |:-----:|-------------|
 |   1   | 128 (`$80`) |
 |   2   | 144 (`$90`) |

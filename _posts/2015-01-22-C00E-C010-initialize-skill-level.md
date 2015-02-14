@@ -20,4 +20,4 @@ Via experimentation with the debugger, we can observe that the value at `$2700` 
  - 7 when the user starts a game with skill level 7
  - 8 when the user starts a game with skill level 8 (hardest)
 
-It's fairly obvious, then, that the variable at `$2700` indicates the skill level. Most likely we initialize it to 8, the hardest skill level, so that the aliens running in "demo mode" on the start screen look more aggressive.
+It's fairly obvious, then, that the variable at `$2700` indicates the skill level. Most likely we initialize it to 8, the hardest skill level, so that the aliens running in "demo mode" on the start screen are plentiful and aggressive.
