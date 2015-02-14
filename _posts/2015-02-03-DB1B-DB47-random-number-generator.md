@@ -138,7 +138,7 @@ I was curious to see how well a relatively simple algorithm like this works as a
 3. Call the random function and read the resulting byte.
 4. Write a pixel with R, G and B values equal to the byte value. 
 
-We'll end up with a map of all the numbers generated. A 0 will have resulted in a pure black pixel, a 255 will have resulted in a pure white pixel, and anything in between will be a gray-scale pixel. For reference, here's the map generated in a short C# program which uses the [Random.Next()](https://msdn.microsoft.com/en-us/library/2dx6wyd4%28v=vs.110%29.aspx%20Random.Next%28%29) function:
+We'll end up with a map of all the numbers generated. A 0 will have resulted in a pure black pixel, a 255 will have resulted in a pure white pixel, and anything in between will be a gray-scale pixel. For reference, here's the map generated in a short C# program which uses the [Random.Next](https://msdn.microsoft.com/en-us/library/2dx6wyd4%28v=vs.110%29.aspx%20Random.Next%28%29) function:
 
 ```cs
 using System;
