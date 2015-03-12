@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Initialize galaxy I ($C0AE—C0DF)
+title:  Initialize galaxy I ($C0AE—C0E1)
 ---
 
 ```
@@ -13,7 +13,7 @@ We first put `08` on the stack, but we don't use it immediately, so let's not wo
 ```
 C0B2: BD DB 1B     JSR $DB1B  Call $DB1B
 C0B5: 81 40        CMPA #$40  A - 64
-C0B7: 24 F9        BCC $00B2  Call $DB1B while A > 63
+C0B7: 24 F9        BCC $00B2  Call $DB1B until A < 64
 ```
 
 We invoke the function at `$DB1B` until it puts a number in the accumulator that's less than 64. [See here for a full explanation of this function.]({% post_url 2015-02-03-DB1B-DB47-random-number-generator %})
@@ -114,7 +114,7 @@ It's a simple equation which will result in one of these values:
 
 ```
 C0D4: 34 04        PSHS ,B    Push B to stack
-C0D6: A1 E0        CMPA ,S+   A - stack value, pop stack and discard
+C0D6: A1 E0        CMPA ,S+   A - stack value, discard top of stack
 ```
 
 The end result of these two operations is a comparison of register A to register B, something akin to a `CMPA ,B` instruction. Unfortunately such an instruction does not exist; other processors might offer such an operation, but the 6809 does not provide direct register-to-register comparison. We have to work around that by loading one of the registers into memory first, and then we can perform a register-to-memory comparison.
@@ -145,8 +145,9 @@ And on the hardest skill level:
 $$</div>
 
 ```
-C0DC: 6A E4        DEC ,S     stack value - 1
-C0DE: 26 D2        BNE $C0B2  Loop until stack value == 0
+C0DC: 6A E4        DEC ,S       stack value - 1
+C0DE: 26 D2        BNE $C0B2    Loop until stack value == 0
+C0E0: 32 61        LEAS +$01,S  Discard top of stack
 ```
 
 Remember the number 8 that we stored on the stack way back at `$C0B0`? We're using it at last, as a loop counter. That means that we repeat this whole process 8 times, resulting in the 8 values being set in our board of values. For example:
