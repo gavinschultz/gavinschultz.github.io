@@ -14,7 +14,7 @@ We start execution at address `$C000`.
 ### C000?! Why C000?!
 You might expect that when you turn the computer on it'd be sensible to start executing instructions from memory address `$0000`. The 8080, Intel's second ever 8-bit CPU created in 1974, did actually start reading from `$0000`. Later microprocessors would start execution at the *end* of memory; Intel's iconic 8086, the very first x86 processor, starts execution at `$FFFF0` while the Motorola 6809, used in the CoCo itself, starts execution at `$FFFE`.
 
-In that case, why doesn't the code start at `$FFFE`? The short answer is that there's a whole bunch of initialization that has to occur before we can start running our game. We also have to remember that our game is not embedded in the CoCo itself, but sitting in the circuits of a plastic cartridge that we've shoved into the hole on the right-hand side of the box, so we shouldn't really expect to be given the honour of being mapped to the prime position of `$0000`. We can see where it's actually addressed by looking at the simplified CoCo memory map:
+In that case, why doesn't our code begin at `$FFFE`? Because our game is not the first piece of code to run when we switch the machine on. We have to remember that our game code is not part of the CoCo itself, but sitting in the circuits of the plastic cartridge that we've pushed into the box, so we shouldn't really expect to be given the honour of being mapped to the prime position of `$FFFE`. We can see where it's actually addressed by looking at the simplified CoCo memory map:
 
 ![CoCo Simple Memory Map](../images/CoCo_Simple_Memory_Map.png "CoCo Simple Memory Map")
 

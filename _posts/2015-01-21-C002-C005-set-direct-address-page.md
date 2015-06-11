@@ -8,17 +8,21 @@ C002: 86 20        LDA  #$20
 C004: 1F 8B        TFR  A,DP   Set to page 32 (offset 0x2000)
 ```
 
-This is essentially a technique for saving bytes in the program code. Normally, a memory address is specified by the full 16-bit address e.g.
+This is essentially a technique for saving bytes in the program code. Normally, a memory address (let's say `$2010`) is specified by the full 16-bit address e.g.
 
-`JSR $2010`
+```
+JSR $2010
+```
 
 The direct page (DP) register specifies which memory page to use when using direct addressing mode in all subsequent instructions. In effect this sets a default value for the upper 8 bits of direct-addressed addresses:
 
-i.e. ADDRESS = DP REGISTER + OPERAND
+i.e. ADDRESS = DP REGISTER + OPERAND (1 byte)
 
-This means that your addresses can be specified with one byte instead of two e.g.
+This means that any addresses between `$2000` and `$20FF` can be specified with one byte instead of two e.g.
 
-`JSR $10`
+```
+JSR $10       Jump to $2010
+```
 
 By implication, the 6809 considers a single memory page to be 256 bytes. There are 256 such pages available for addressing. (e.g. 256 pages x 256 bytes = 64KB).
 

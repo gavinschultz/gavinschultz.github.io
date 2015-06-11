@@ -4,16 +4,16 @@ title:  Initialize video ($C013—C015)
 ---
 
 ```
-C00D: BD D7 B2     JSR $17B2   Jump to initialize_video()
+C00D: BD D7 B2   JSR $D7B2   Jump to initialize_video()
 ```
 
 This first part of this subroutine, which I've named `initialize_video()` because I know that we're setting up the video display, is shown below.
 
 ```
-D7B2: 8E FF C6     LDX #$FFC6   Address for SAM VDG display offset
-D7B5: 86 03        LDA #$03     Set A to 3 (binary 000 0011)
-D7B7: C6 07        LDB #$07     Set B to 7
-D7B9: 8D 12        BSR $17CD    Set SAM, 7 bits with mask 000 0011
+D7B2: 8E FF C6   LDX #$FFC6   Set X to address for SAM VDG display offset
+D7B5: 86 03      LDA #$03     Set A to 3 (binary 000 0011)
+D7B7: C6 07      LDB #$07     Set B to 7
+D7B9: 8D 12      BSR $D7CD    Call write_to_SAM_register()
 ```
 
 "Hang on a minute," you say. "What's this 'SAM'? What's this 'VDG'? What are we doing here?". Fair questions, which require a diversion into how video works for the CoCo.
@@ -81,27 +81,27 @@ The SAM cleverly steps around this issue by *interleaving* CPU and VDG accesses 
 ![MC6883 Interleaved DMA](../images/MC6883_Interleaved_DMA.png)
 
 ### Initializing the VDG via the SAM
-The graphics mode is controllable . It also has to be set in the SAM, via a 3-bit value addresses 0xFFC0 to 0xFFC5.
+The graphics mode is controllable, by writing data to special areas of memory accessible to the VDG and the SAM. 
+
+First we apply a change to the SAM, which has 11 "bits" that the user can set to configure the chip. I use the term *bit* in quotes because setting these values is not straightforward; we have 22 bytes of specially mapped memory which we can write data to in order to set or clear a SAM "bit".
 
 ![MC6883 VDG Mode and Display Offset memory mappings](../images/MC6883_VDG_Mode_and_Display_Offset_FFC0_to_FFD5.png)
 
-The subroutine at $17CD, I'll call `write_to_SAM_register()`:
+The subroutine at `$D7CD`, I'll call `write_to_SAM_register()`:
 
 ```
-D7CD: 46           RORA        
-D7CE: 24 06        BCC $17D6   Branch if carry-bit 0
-D7D0: 30 01        LEAX +$01,X 
-D7D2: A7 80        STA ,X+     
-D7D4: 20 02        BRA $17D8
-D7D6: A7 81        STA ,X++ 
-D7D8: 5A           DECB
-D7D9: 26 F2        BNE $17CD  Next B (i.e. return to top)
-D7DB: 39           RTS
+D7CD: 46         RORA        Load the next bit into the carry bit
+D7CE: 24 06      BCC $D7D6   Branch if carry bit is a 0
+D7D0: 30 01      LEAX +$01,X Move to the "set bit" memory location
+D7D2: A7 80      STA ,X+     "Set" the bit, move to next "clear" bit memory location
+D7D4: 20 02      BRA $D7D8   Continue
+D7D6: A7 81      STA ,X++    "Clear" the bit, move to next "clear" bit memory location
+D7D8: 5A         DECB        B - 1
+D7D9: 26 F2      BNE $D7CD   Loop to top while B > 0
+D7DB: 39         RTS         Return
 ```
 
 As I discovered later, this piece of code is the idiomatic way to set these bits on the SAM, and is actually listed almost exactly as above on page 16 of the MC6883 technical specs.
-
-I rewrote this function in C, once loosely mimicking the ASM instructions, and then again at a "higher level" just trying to recreate the functionality. Neither is very satisfying, mostly because you're ultimately 
 
 ## VDG Address Offset
 The addresses 0xFFC6 - 0xFFD3 are mapped to the VDG Address Offset, which indicates the starting address in RAM for video data. It's set in a kinda weird way; individual bits are set by writing to particular bytes of mapped memory:
@@ -150,7 +150,7 @@ D7C0: C6 03        LDB #$03    Set B to 3
 D7C2: 8D 09        BSR $17CD   Set SAM, 3 bits with mask 110
 ```
 
-The bits 110 correspond to video mode "CG6", which is definitely the best for games at 128 x 192 with 4 colors.
+The bits 110 correspond to video mode "CG6" ("G6C" in the earlier diagram), which is definitely the best for games at 128 x 192 with 4 colors.
 
 ## VDG Modes via I/O mappings
 ```
