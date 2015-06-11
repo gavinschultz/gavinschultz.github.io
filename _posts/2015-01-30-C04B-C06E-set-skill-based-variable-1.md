@@ -19,7 +19,7 @@ C057: DD 45        STD $45      Store result to 0x2045
 C059: DD 47        STD $47      Store result to 0x2047
 ```
 
-Earlier we identified `$2700` as the [skill_level variable]({% post_url 2015-01-22-C00E-C010-initialize-skill-level %}), which has a range of 1 to 8. We use that value now to perform a calculation:
+Earlier we identified `$2700` as the [skill_level variable]({% post_url 2015-01-22-C00E-C012-initialize-skill-level %}), which has a range of 1 to 8. We use that value now to perform a calculation:
 
 <div>$$
 \begin{array}{l@{\,}l}
