@@ -11,12 +11,12 @@ This perhaps signifies a single byte variable, but it doesn't seem to be used an
 
 ```
 C04D: B6 27 00     LDA $2700    Set A = skill_level
-C032: 4A           DECA         skill_level - 1
-C033: C6 50        LDB #$50     Set B = 80
-C035: 3D           MUL          (skill_level - 1) x 80
-C036: C3 00 80     ADDD #$0080  + 128
-C039: DD 45        STD $45      Store result to 0x2045
-C03B: DD 47        STD $47      Store result to 0x2047
+C050: 4A           DECA         skill_level - 1
+C051: C6 50        LDB #$50     Set B = 80
+C053: 3D           MUL          (skill_level - 1) x 80
+C054: C3 00 80     ADDD #$0080  + 128
+C057: DD 45        STD $45      Store result to 0x2045
+C059: DD 47        STD $47      Store result to 0x2047
 ```
 
 Earlier we identified `$2700` as the [skill_level variable]({% post_url 2015-01-22-C00E-C010-initialize-skill-level %}), which has a range of 1 to 8. We use that value now to perform a calculation:
@@ -61,7 +61,7 @@ In short, we're probably just trying to do this:
 $$</div>
 
 ```
-C03C: 34 06        PSHS ,B,A    Push 3A70 to the stack
+C060: 34 06        PSHS ,B,A    Push 3A70 to the stack
 ```
 
 Now we push the result of that lower-byte multiplication to the stack. [We saw earlier]({% post_url 2015-01-25-C021-C024-initialize_stack %}) that the stack could be used to temporarily store data; this is the first time we're actually doing so, in this case on the number `$3A70`.
@@ -69,10 +69,10 @@ Now we push the result of that lower-byte multiplication to the stack. [We saw e
 Assuming we're still at the top of the stack at 0x3FFF, this 2-byte number will be saved at location 0x3FFD.
 
 ```
-C03E: 6F E2        CLR ,-S      Store 0x3FFC = 0, Set S = 3FFC
-C040: 96 45        LDA $45      Set A = 2
-C042: C6 55        LDB #$55     Set B = 85
-C044: 3D           MUL          2 x 85 = 170 (0xAA)
+C062: 6F E2        CLR ,-S      Store 0x3FFC = 0, Set S = 3FFC
+C064: 96 45        LDA $45      Set A = 2
+C066: C6 55        LDB #$55     Set B = 85
+C068: 3D           MUL          2 x 85 = 170 (0xAA)
 ```
 
 Sure enough, we've now performed the multiplication on just the *upper* byte of the value we generated. I would now expect that we add these two together to get E470.
@@ -89,7 +89,7 @@ $$</div>
 But in 0x0062, why did we decrement the stack one extra byte, and clear that value?
 
 ```
-C045: E3 E1        ADDD ,S++    Set D = 3A + AA = 00E4 (228), S = 3FFE 
+C069: E3 E1        ADDD ,S++    Set D = 3A + AA = 00E4 (228), S = 3FFE 
 C06B: 32 61        LEAS +$01,S  Set S = 3FFF (top of stack)
 C06D: DD 49        STD $49      Store 0x2049 = 00E4
 ```

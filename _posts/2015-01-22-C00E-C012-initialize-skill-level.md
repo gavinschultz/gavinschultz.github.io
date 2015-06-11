@@ -4,8 +4,8 @@ title:  Initialize skill level ($C00E—C010)
 ---
 
 ```
-C00E: 86 08        LDA #$08    
-C00A: B7 27 00     STA $2700   Store 8 in $2700
+C00E: 86 08        LDA #$08    Set A = 8
+C010: B7 27 00     STA $2700   Store 8 in $2700
 ```
 
 Via experimentation with the debugger, we can observe that the value at `$2700` appears to be set to:
