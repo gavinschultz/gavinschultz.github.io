@@ -26,7 +26,7 @@ The function has the following code:
 C0F0: 34 06        PSHS ,B,A  Push A & B to stack
 C0F2: 8E 25 19     LDX #$2519 Set X = $2519
 C0F5: BD DB 1B     JSR $DB1B  Call random_next()
-C0F8: 81 40        CMPA #$40  A - 64
+C0F8: 81 40        CMPA #$40  A - 64?
 C0FA: 24 F9        BCC $C0F5  Call random_next() until A < 64
 C0FC: 1F 89        TFR A,B    Set B = A
 C0FE: 58           ASLB       B * 2
@@ -77,7 +77,7 @@ C112: A7 02        STA +$02,X  Store A at (X + 2)
 Now we write a third value in the next byte again; continuing our previous example, we would be writing to `$2530`. This time the number is not random, but comes from the stack. We don't change the stack, we just take a peek at it - specifically, we look at the value that we originally loaded into register B at `$C0E4` and `$C0EA` (hence, why I have called it "stack value B" in the comments). Accordingly, this value will be either a 1 or a 0.
 
 ```
-C114: 6A E4        DEC ,S      stack value A - 1
+C114: 6A E4        DEC ,S      stack value A = stack value A - 1
 C116: 26 DA        BNE $C0F2   Loop until stack value A = 0
 ```
 
