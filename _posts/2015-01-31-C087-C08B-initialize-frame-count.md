@@ -4,7 +4,7 @@ title:  Initialize frame count ($C087—C08B)
 ---
 
 ```
-C057: CC C0 00     LDD #$C000   Set D = 49152 ($C000)
+C087: CC C0 00     LDD #$C000   Set D = 49152 ($C000)
 C08A: DD 67        STD $67      Store to $2067
 ```
 

@@ -13,12 +13,14 @@ C0EC: 8D 02        BSR $C0F0  Branch
 C0EE: 20 2B        BRA $C11B  Jump
 ```
 
-We call the subroutine at `$C0F0` twice, each time with different arguments.
+We call the subroutine at `$C0F0` twice, each time with different arguments. In a language like C it might look like this:
 
 ```
 func_C0F0(4, 1);
 func_C0F0(12, 0);
 ```
+
+The function has the following code:
 
 ```
 C0F0: 34 06        PSHS ,B,A  Push A & B to stack

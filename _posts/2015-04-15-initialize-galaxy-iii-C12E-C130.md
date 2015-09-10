@@ -21,13 +21,11 @@ D380: FD 26 FA   STD $26FA Set $26FA = A + 1, $26FB = A
 D383: FD 26 FC   STD $26FC Set $26FC = A + 1, $26FD = A
 ```
 
-We use the player's galaxy sector to reset the values used by the random_number() function. There's no obvious mathematical outcome of this, but messing with the internals like this is probably a reasonably effective way of re-seeding the random number generator, which helps it to provide more "randomness".
-
-Having said that, since the player position can only be one of 64 possible values, we can likewise only re-seed the generator in 64 different ways.
+We appear to be using the player's galaxy sector to reset the values used by the random_number() function. There's no obvious mathematical outcome of this, but messing with the internals like this re-seeds the random number generator. In theory this helps it to provide more "randomness". A limitation of this is that, since the player position can only be one of 64 possible values, we can only re-seed the generator in 64 different ways.
 
 ```
 D386: 9E 36        LDX $36    Set X = player_location
-D388: 27 06        BEQ $D390  If player_location = 0, go to $D390
+D388: 27 06        BEQ $D390  If player_location[alien_count] = 0, go to $D390
 D38A: 96 35        LDA $35    Set A = value at $2035
 D38C: AB 84        ADDA ,X    A = A + player_location[alien_count]
 D38E: A7 84        STA ,X     Store A at X

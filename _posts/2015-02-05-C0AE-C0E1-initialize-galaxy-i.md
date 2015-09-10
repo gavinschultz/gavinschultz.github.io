@@ -11,9 +11,9 @@ C0B0: 34 04        PSHS B     Push B to stack
 We first put `08` on the stack, but we don't use it immediately, so let's not worry about it. We'll get it back later, but in the meantime the B register needs to be used elsewhere.
 
 ```
-C0B2: BD DB 1B     JSR $DB1B  Call $DB1B
+C0B2: BD DB 1B     JSR $DB1B  Call random_next()
 C0B5: 81 40        CMPA #$40  A - 64
-C0B7: 24 F9        BCC $00B2  Call $DB1B until A < 64
+C0B7: 24 F9        BCC $00B2  Call random_next() until A < 64
 ```
 
 We invoke the function at `$DB1B` until it puts a number in the accumulator that's less than 64. [See here for a full explanation of this function.]({% post_url 2015-02-03-DB1B-DB47-random-number-generator %})
@@ -23,7 +23,7 @@ We're evidently looking for a random integer between 0 and 63, but a limitation 
  - Divide the number by 4, ensuring a maximum of 63. While division can be computationally expensive, dividing by 4 would only involve two arithmetic right-shifts (`ASR`), or
  - Keep trying until we happen to get a number less than 64.
 
-The latter method is used here. To be honest, as that method requires an indeterminate number of cycles to complete, I myself would have preferred a simple division by 4. But let's press on.
+The latter method is used here. To be honest, as that method requires an indeterminate number of cycles to complete, I myself might have preferred a simple division by 4. On the other hand, in our discussion on the random number generator we determined that the more cycles it runs, the better the randomness of the results. But let's press on.
 
 ```
 C0B9: 8E 25 19     LDX #$2519  Set X = $2519
@@ -83,7 +83,7 @@ C0CA: 81 08        CMPA #$08  A - 8
 C0CC: 25 F7        BCS $C0C5  Call random_next() until A >= 8
 ```
 
-This iterates the random_next() function until it gives us a number that's not equal zero and then, subsequently, until it's a number greater than or equal to 8. (Note that the `BCS` -- "branch on carry set" -- is the reverse counterpart to the `BCC` seen at `$C0B7`.)
+This iterates the random_next() function until it gives us a number that's not equal to zero and then, subsequently, until it's a number greater than or equal to 8. (Note that the `BCS` -- "branch on carry set" -- is the reverse counterpart to the `BCC` seen at `$C0B7`.)
 
 I have to again be critical here: is the `BEQ` ("branch on zero") necessary? I'd say not; the `BCS` checking for a number less than 8 surely covers exactly the same case.
 

@@ -7,6 +7,19 @@ Gemfile.lock
 node_modules
 package.json
 
+# C#
+.cache
+bin/
+obj/
+packages/
+*.suo
+
+# C++
+Debug/
+*.sdf
+*.vcxproj.*
+
+
 # TeX working files
 *.gz
 *.aux
