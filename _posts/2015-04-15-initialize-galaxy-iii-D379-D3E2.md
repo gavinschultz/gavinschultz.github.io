@@ -1,11 +1,7 @@
 ---
 layout: post
-title:  Initialize galaxy III ($C12E—C130)
+title:  Initialize galaxy III ($D379—D3E2)
 ---
-
-```
-C12E: BD D3 79   JSR $D379   Jump
-```
 
 ```
 D379: D6 2A      LDB $2A   Set B = player_sector_number
@@ -176,7 +172,7 @@ D3DD: CE DC DE     LDU #$DCDE  U = $DCDE
 D3E0: DF 6D        STU $6D     $206D->val = U
 ```
 
-First use of the user stack (U) rather than the hardware stack (S). Depending on the station type, `$206D` will store one of two ROM addresses. These are probably going to point to the station images bytes.
+This is the first use of the user stack (U) rather than the hardware stack (S). Depending on the station type, `$206D` will store one of two ROM addresses. These are probably going to point to the station images bytes.
 
 ```
 D3E2: 39           RTS
