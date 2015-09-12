@@ -13,6 +13,8 @@ title:  Memory map and variables ($00—00)
 2039: unknown (initialized to 0 at $C04B)
 2045: unknown skill-based variable (initialized at $C039)
 2047: unknown skill-based variable (initialized at $C03B)
+204F: player_score right digits
+2050: player_score left digits
 2051: unused variable? (initialized to 3 at $C133)
 2055: unknown (initialised to 0 at $C085)
 2065: unknown skill-based variable (initialized at $C080)
